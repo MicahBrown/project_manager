@@ -1,0 +1,19 @@
+<h1>Register</h1>
+<%= form_for User.new, url: register_path do |f| %>
+  <div>
+    <%= f.label :email, "E-Mail" %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password, "Password" %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, "Password Confirmation" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.submit %>
+<% end %>

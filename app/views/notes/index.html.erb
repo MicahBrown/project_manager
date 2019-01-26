@@ -1,0 +1,8 @@
+<h1>Notes</h1>
+<%= link_to "New Note", new_crew_note_path(@crew) %>
+
+<ul>
+  <% @crew.notes.each do |note| %>
+    <li><%= link_to note.title || "(UNTITLED)", edit_crew_note_path(@crew, note) %></li>
+  <% end %>
+</ul>

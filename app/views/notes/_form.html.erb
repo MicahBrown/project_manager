@@ -1,0 +1,13 @@
+<% if note.errors.present? %>
+  <ul>
+    <% note.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for note, url: note.new_record? ? crew_notes_path(crew) : crew_note_path(crew, note), html: {} do |f| %>
+  <%= f.text_field :title, placeholder: "Title" %>
+  <%= f.text_area :text, class: "editor" %>
+  <%= f.submit %>
+<% end %>

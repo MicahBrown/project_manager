@@ -1,0 +1,63 @@
+<%= link_to "New Poll" %>
+<%= link_to "New Comment" %>
+<%= link_to "Upload File" %>
+
+<div>
+  <strong>Post Comment</strong>
+  <%= form_for @comment, url: crew_comments_path(@crew) do |f| %>
+    <%= f.label :message %>
+    <%= f.text_area :message %>
+    <%= f.submit %>
+  <% end %>
+</div>
+
+<div>
+  <strong>Make Poll</strong>
+  <%= form_for @poll, url: crew_polls_path(@crew) do |f| %>
+    <div>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+
+    <% @poll.poll_options.build if @poll.poll_options.blank? %>
+    <%= f.fields_for :poll_options do |ff| %>
+      <%= ff.hidden_field :position, value: 0 %>
+      <%= ff.label :value, "Option" %>
+      <%= ff.text_field :value %>
+    <% end %>
+    <%= f.submit %>
+  <% end %>
+</div>
+
+<div>
+  <strong>Upload File</strong>
+  <%= form_for @attachment, url: crew_attachments_path(@crew) do |f| %>
+    <%= f.file_field :file %>
+    <%= f.submit %>
+  <% end %>
+</div>
+
+<div>
+<% @crew.feeds.each do |feed| %>
+  <%= render_feed(feed) %>
+<% end %>
+</div>
+
+<style type="text/css">
+  .feed {
+    padding: 1rem;
+    border: 1px solid;
+    border-bottom-style: none;
+  }
+  .feed:last-child {
+    border-bottom-style: solid;
+  }
+  .subcomment {
+    padding: 0.5rem;
+    border: 1px solid;
+    border-bottom-style: none;
+  }
+  .subcomment:last-child {
+    border-bottom-style: solid;
+  }
+</style>

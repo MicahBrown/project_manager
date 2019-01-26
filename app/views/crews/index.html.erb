@@ -1,0 +1,7 @@
+<%= link_to "Add Crew", new_crew_path %>
+
+<ul>
+  <% current_user.crews.each do |crew| %>
+    <li><%= link_to crew.name, crew_path(crew) %></li>
+  <% end %>
+</ul>

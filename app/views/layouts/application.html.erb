@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ProjectManager</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>">
+    <div>
+      <div class="pure-menu pure-menu-horizontal">
+        <%= link_to "CrewApp", root_path, class: "pure-menu-heading pure-menu-link" %>
+        <ul class="pure-menu-list">
+          <% if logged_in? %>
+            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+              <a href="#" class="pure-menu-link">#</a>
+              <ul class="pure-menu-children">
+                <li class="pure-menu-item"><%= link_to "User Settings", "#", class: "pure-menu-link" %></li>
+                <li class="pure-menu-item"><%= link_to "Log Out", logout_path, method: :delete, class: "pure-menu-link" %></li>
+              </ul>
+            </li>
+          <% else %>
+            <li class="pure-menu-item"><%= link_to "Log In", login_path, class: "pure-menu-link" %></li>
+            <li class="pure-menu-item"><%= link_to "Register", register_path, class: "pure-menu-link" %></li>
+          <% end %>
+        </ul>
+
+      </div>
+    </div>
+</div>
+  <div id="container" class="<%= 'with-sidebar' if current_crew %>">
+    <% if current_crew %>
+      <div id="sidebar">
+        <div class="pure-menu">
+          <span class="pure-menu-heading"><%= current_crew.name %></span>
+
+          <ul class="pure-menu-list">
+            <li class="pure-menu-item"><%= link_to "Feed", crew_feed_index_path(current_crew), class: "pure-menu-link" %></li>
+            <li class="pure-menu-item"><%= link_to "To-Do", crew_todos_path(current_crew), class: "pure-menu-link" %></li>
+            <li class="pure-menu-item"><%= link_to "Conversations", crew_conversations_path(current_crew), class: "pure-menu-link" %></li>
+            <li class="pure-menu-item"><%= link_to "Notes", crew_notes_path(current_crew), class: "pure-menu-link" %></li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
+    <div id="main">
+      <%= yield %>
+    </div>
+  </div>
+  </body>
+</html>
